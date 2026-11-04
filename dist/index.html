@@ -18,7 +18,7 @@
         <div class="knowledge-copy">
           <span class="eyebrow">01 / Explore por conexões</span>
           <h2 id="tree-title">O conhecimento <em>cria raízes.</em></h2>
-          <p>Gestão, tecnologia e negócios não são assuntos isolados. Cada parte da árvore é um lugar diferente. Passe o cursor, descubra a proposta e entre no ambiente que despertar sua curiosidade.</p>
+          <p>Gestão, tecnologia e negócios não são assuntos isolados. Cada parte da árvore é um lugar diferente. <span class="desktop-instruction">Passe o cursor para conhecer os ambientes e clique para explorar.</span><span class="mobile-instruction">Veja a árvore completa e toque em um dos ambientes abaixo para explorar.</span></p>
           <div class="tree-insight" aria-live="polite">
             <span class="tree-insight-label" id="tree-label">A ÁRVORE DO CONHECIMENTO</span>
             <h3 id="tree-heading">Comece pela sua curiosidade.</h3>
@@ -114,7 +114,8 @@
       const enter=()=>openDestination(category);
       region.addEventListener('click',enter);region.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();enter()}});
     });
-    document.querySelector('#tree-explore').addEventListener('click',()=>document.querySelector('.catalog-body').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
+    const explore=document.querySelector('#tree-explore');
+    if(explore)explore.addEventListener('click',()=>window.location.assign('ambiente.html?area=Todos'));
     function render(){
       const q=search.value.trim().toLocaleLowerCase('pt-BR');
       const filtered=all.filter(x=>(current==='Todos'||x.category===current)&&[x.title,x.description,x.category,x.label,x.level].join(' ').toLocaleLowerCase('pt-BR').includes(q));
@@ -142,7 +143,8 @@
     }
     function guideText(x){return [x.title,x.label,'Fonte: '+x.origin,'','POR QUE IMPORTA',x.why,'','APLICAÇÕES',...x.uses.map(y=>'- '+y),'','COMO USAR',...x.steps.map((y,i)=>(i+1)+'. '+y),'',x.prompt?'MATERIAL PRONTO PARA USAR\n'+x.prompt:'','ATENÇÃO',x.warning,'','LINKS',...(x.links||[]).map(l=>l.label+': '+l.url),'','Rafael Rein · Curadoria e contexto. Projetos externos pertencem aos respectivos mantenedores.'].join('\n')}
     function downloadGuide(x){const blob=new Blob([guideText(x)],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='rafael-rein-'+x.id+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
-    search.addEventListener('input',render);document.querySelector('#year').textContent=new Date().getFullYear();render();
+    if(search&&filters&&cards){search.addEventListener('input',render);render()}
+    document.querySelector('#year').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
