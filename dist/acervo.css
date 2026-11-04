@@ -125,3 +125,27 @@ body:has(.tree-story) .catalog-body{display:none}
   .n-origens{grid-column:1/-1;justify-content:center;background:#2b493a}
   .tree-story{padding-top:56px}
 }
+
+/* Mobile exploration: the image itself is the navigation surface. */
+.tree-mobile-tools,.tree-mobile-detail{display:none}
+.tree-viewport{width:100%}
+@media(max-width:600px){
+  .tree-mobile-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b1d17;color:#c7dbc9;padding:13px 16px;font-size:12px;line-height:1.4}
+  .tree-mobile-tools span{max-width:210px}
+  #tree-zoom{flex:none;min-height:42px;padding:9px 12px;border:1px solid #a9d4a4;border-radius:7px;color:#e8f9dd;background:#193b2d;font-size:12px;font-weight:700}
+  .tree-viewport{display:block;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:thin;background:#071811}
+  .tree-viewport .tree-canvas{display:block;position:relative;width:100%;height:auto;aspect-ratio:1672/941;min-height:0;max-width:none;margin:0;padding:0;overflow:hidden;background:#071811 url('arvore-conhecimento-cinematica.png') center/100% 100% no-repeat}
+  .tree-viewport .tree-canvas:before{display:none}
+  .tree-viewport.zoomed .tree-canvas{width:190%}
+  .tree-viewport .scene-hotspots{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:auto;z-index:8}
+  .tree-viewport .scene-region{pointer-events:auto;cursor:pointer}
+  .tree-viewport .scene-region .region-hit{pointer-events:all}
+  .tree-viewport .scene-region.selected image{opacity:.22}
+  .tree-viewport .scene-region.selected .region-outline{opacity:.9;stroke:#f4f7b5;stroke-width:4}
+  .tree-viewport .tree-node,.tree-viewport .n-origens{display:none}
+  .tree-mobile-detail{display:block;padding:20px;min-height:145px;background:#10291f;color:#f0f7e9;border-top:1px solid #496e51}
+  .tree-mobile-detail .eyebrow{font-size:10px;color:#b9e399}
+  .tree-mobile-detail h3{font:normal 26px/1.2 Georgia,serif;margin:9px 0}
+  .tree-mobile-detail p{font-size:13px;line-height:1.6;margin:0;color:#c4d8c9}
+  .tree-mobile-detail a:not([hidden]){display:inline-flex;align-items:center;min-height:44px;margin-top:15px;padding:11px 16px;border-radius:7px;background:#d7f38f;color:#173121;font-weight:800;font-size:13px;text-decoration:none}
+}
