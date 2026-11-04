@@ -1,4 +1,5 @@
 /* Curadoria editorial Rafael Rein. Links para terceiros são identificados em cada material. */
+(function(){if(!document.querySelector('script[data-rr-analytics]')){const s=document.createElement('script');s.src='analytics.js';s.defer=true;s.dataset.rrAnalytics='1';document.head.appendChild(s)}})();
 window.RR_MATERIAIS = [
   {
     id:"diagnostico-processos",category:"Prompts",label:"Prompt completo + roteiro",level:"Gestores",title:"Descubra onde sua empresa perde tempo",description:"Diagnóstico de gargalos em cinco fases, antes de comprar ferramentas ou automatizar.",origin:"Roteiro editorial Rafael Rein",duration:"20–40 min de diagnóstico inicial",
