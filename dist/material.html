@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101a17">
+  <meta name="description" content="Guia prático selecionado por Rafael Rein, com explicação, aplicações, passos e materiais para baixar.">
+  <title>Material — Central de IA | Rafael Rein</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="acervo.css">
+</head>
+<body>
+  <header><nav class="wrap topbar"><a class="brand" href="index.html">RAFAEL REIN<b>.</b></a><div class="nav-return"><a class="back" id="backPlace" href="index.html">← Voltar ao ambiente</a><a class="back" href="index.html">Árvore principal ↗</a></div></nav></header>
+  <main id="main">
+    <div class="material-hero"><div class="wrap"><nav class="crumbs" aria-label="Você está aqui"><a href="index.html">Árvore</a> <span>›</span> <a id="crumbPlace" href="index.html">Ambiente</a> <span>›</span> <span>Guia</span></nav><span class="eyebrow" id="category"></span><h1 id="title"></h1><p id="description"></p><div class="meta" id="metadata"></div></div></div>
+    <div class="wrap reading"><div class="reading-grid"><article>
+      <section class="section"><span class="eyebrow">01 / Entenda o problema</span><h2>Por que isso importa?</h2><p id="why"></p></section>
+      <section class="section"><span class="eyebrow">02 / Casos de uso</span><h2>Onde aplicar</h2><ul id="uses"></ul></section>
+      <section class="section"><span class="eyebrow">03 / Da teoria à prática</span><h2>Passo a passo</h2><ol id="steps"></ol></section>
+      <section class="section" id="readySection" hidden><span class="eyebrow">04 / Material pronto</span><h2>Copie, adapte e teste</h2><p>Substitua os campos entre colchetes pelas informações do seu caso. Não cole dados sigilosos ou pessoais sem autorização.</p><pre class="prompt-block" id="prompt"></pre></section>
+      <div class="warning"><strong>Atenção:</strong> <span id="warning"></span></div>
+      <div class="related"><span class="eyebrow">Continue explorando</span><h3>O conhecimento continua.</h3><p>Volte ao ambiente de onde veio ou explore outros caminhos da árvore.</p><a id="relatedPlace" href="index.html">← Voltar ao ambiente</a> <a href="index.html">Explorar a árvore ↗</a></div>
+    </article><aside class="aside"><div class="aside-box"><span class="eyebrow">Guarde este material</span><p id="source"></p><button type="button" class="primary" id="download">↓ Baixar guia completo (.txt)</button><button type="button" id="copy" hidden>Copiar prompt</button><div id="external"></div><p id="notice" role="status" aria-live="polite"></p><p>Os arquivos de guia são gerados no navegador. Para repositórios, o código original permanece no GitHub do mantenedor.</p></div></aside></div></div>
+  </main>
+  <footer><div class="wrap foot-row"><span>Rafael Rein · Curadoria e conteúdo aplicado</span><a href="index.html">Voltar à Árvore do Conhecimento ↗</a></div></footer>
+  <script src="acervo.js"></script>
+  <script>
+    const params=new URLSearchParams(location.search);const id=params.get('id');const x=window.RR_MATERIAIS.find(item=>item.id===id);
+    const allowed=['Todos','Prompts','Skills','Repositórios','Gestão','IA aplicada','Estratégia'];const from=params.get('from');const area=allowed.includes(from)?from:(x?x.category:'Todos');const territory={'Prompts':'prompts','Skills':'skills','Repositórios':'codigos','Gestão':'gestao','IA aplicada':'ia','Estratégia':'estrategia'};const returnUrl=from==='arvore'?'index.html':area==='Todos'?'ambiente.html?area=Todos':'territorio.html?lugar='+territory[area];const returnName=from==='arvore'?'Árvore principal':area==='Todos'?'Acervo do Conhecimento':({'Prompts':'Biblioteca das Ideias','Skills':'Observatório dos Métodos','Repositórios':'Arquivo dos Códigos','Gestão':'Mesa dos Projetos','IA aplicada':'Forja da Inteligência','Estratégia':'Conselho das Decisões'}[area]||area);
+    for(const selector of ['#backPlace','#crumbPlace','#relatedPlace']){const a=document.querySelector(selector);a.href=returnUrl;a.textContent=selector==='#crumbPlace'?returnName:'← Voltar a '+returnName}
+    if(!x){document.querySelector('#main').innerHTML='<div class="wrap" style="padding:100px 28px"><h1>Material não encontrado.</h1><p>O link pode ter sido alterado.</p><a href="index.html">Voltar à árvore principal</a></div>'}else{
+      document.title=x.title+' — Central Rafael Rein';document.querySelector('#category').textContent=x.category+' / '+x.label;document.querySelector('#title').textContent=x.title;document.querySelector('#description').textContent=x.description;document.querySelector('#metadata').textContent=x.level+' · '+x.duration;document.querySelector('#why').textContent=x.why;document.querySelector('#source').textContent='Origem: '+x.origin;document.querySelector('#warning').textContent=x.warning;
+      for(const [sel,values] of [['#uses',x.uses],['#steps',x.steps]]){const list=document.querySelector(sel);values.forEach(value=>{const li=document.createElement('li');li.textContent=value;list.append(li)})}
+      if(x.prompt){document.querySelector('#readySection').hidden=false;document.querySelector('#prompt').textContent=x.prompt;const b=document.querySelector('#copy');b.hidden=false;b.onclick=async()=>{try{await navigator.clipboard.writeText(x.prompt);document.querySelector('#notice').textContent='Material copiado.'}catch{document.querySelector('#notice').textContent='Use o download se a cópia estiver indisponível.'}}}
+      for(const link of (x.links||[])){const a=document.createElement('a');a.href=link.url;a.textContent=link.label+' ↗';if(/^https:\/\//.test(link.url)){a.target='_blank';a.rel='noopener noreferrer'}if(link.url.endsWith('.zip')){a.className='primary';a.textContent='↓ Baixar repositório (.zip)'}document.querySelector('#external').append(a)}
+      document.querySelector('#download').onclick=()=>{const content=[x.title,'Origem: '+x.origin,'',x.why,'','APLICAÇÕES',...x.uses.map(y=>'- '+y),'','PASSO A PASSO',...x.steps.map((y,i)=>(i+1)+'. '+y),'',x.prompt?'MATERIAL PARA USAR\n'+x.prompt:'','ATENÇÃO',x.warning,'','FONTES',...(x.links||[]).map(l=>l.label+': '+l.url)].join('\n');const blob=new Blob([content],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='rafael-rein-'+x.id+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+    }
+  </script>
+</body>
+</html>
