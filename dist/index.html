@@ -27,7 +27,8 @@
           </div>
           <p class="tree-legend">RAÍZES <span>experiência e método</span> · TRONCO <span>Rafael Rein</span> · RAMOS <span>conhecimento aplicado</span></p>
         </div>
-        <div class="tree-canvas" aria-label="Árvore interativa de conhecimento com seis ramos">
+        <div class="tree-mobile-tools"><span>Toque em uma região da árvore para descobrir o ambiente.</span><button type="button" id="tree-zoom" aria-pressed="false">Ampliar imagem ＋</button></div>
+        <div class="tree-viewport" id="tree-viewport"><div class="tree-canvas" aria-label="Árvore interativa de conhecimento com sete ambientes">
           <div class="tree-aura"></div>
           <svg class="scene-hotspots" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice" aria-label="Explore os ambientes da árvore" role="group">
             <defs>
@@ -71,7 +72,8 @@
           <button class="tree-node n-estrategia" data-branch="Estratégia" type="button"><span class="node-icon">◇</span><strong>Estratégia</strong><small>Escolhas e caminhos</small></button>
           <a class="tree-node n-origens" href="historia.html#sobre"><span class="node-icon">✧</span><strong>Minha história</strong></a>
           <div class="tree-signature" aria-hidden="true"><b>RR</b><span>EXPERIÊNCIA · INSTINTO · FUTURO</span></div>
-        </div>
+        </div></div>
+        <div class="tree-mobile-detail" id="tree-mobile-detail" aria-live="polite"><span class="eyebrow">AMBIENTE SELECIONADO</span><h3 id="mobile-place-title">Explore a árvore</h3><p id="mobile-place-description">Toque em uma região da imagem para conhecer este lugar.</p><a id="mobile-place-link" href="historia.html#sobre" hidden>Explorar ambiente ↗</a></div>
       </div>
     </section>
     <section class="tree-story" aria-labelledby="story-title"><div class="wrap story-layout"><div class="story-opening"><span class="eyebrow">A HISTÓRIA DESTA ÁRVORE</span><h2 id="story-title">Nenhum conhecimento nasce sozinho.</h2><p>Uma árvore leva tempo para se formar. Antes de cada galho, existe uma raiz. Antes de cada escolha, uma experiência. E aquilo que aprendemos só ganha valor quando encontra espaço para crescer.</p></div><div class="story-chapters"><article><span>01 / AS RAÍZES</span><h3>O que me trouxe até aqui.</h3><p>Anos de projetos, controle de custos, pessoas e decisões difíceis formaram a base do meu olhar. As raízes representam aquilo que aprendi na prática — inclusive com erros e mudanças de rota.</p></article><article><span>02 / O TRONCO</span><h3>Uma história em movimento.</h3><p>O tronco reúne minha trajetória, meus negócios e as convicções que conectam experiências aparentemente diferentes. É a ligação entre de onde vim e o que construo hoje.</p><a href="historia.html#sobre">Conhecer minha história ↗</a></article><article><span>03 / OS RAMOS</span><h3>Ideias só crescem quando circulam.</h3><p>Gestão, estratégia, métodos, código e IA aplicada seguem caminhos próprios, mas se encontram na mesma árvore. Escolha um ambiente e explore o assunto que faz sentido para você.</p><a href="ambiente.html?area=Todos">Entrar no Acervo do Conhecimento ↗</a></article></div></div></section>
@@ -102,6 +104,24 @@
     const destinationByBranch={'Prompts':'prompts','Skills':'skills','Repositórios':'codigos','Gestão':'gestao','IA aplicada':'ia','Estratégia':'estrategia'};
     function openDestination(category){window.location.assign(category==='História'?'historia.html#sobre':'territorio.html?lugar='+destinationByBranch[category])}
     document.querySelectorAll('button.tree-node').forEach(node=>{node.setAttribute('aria-pressed','false');node.addEventListener('click',()=>openDestination(node.dataset.branch))});
+    function selectMobilePlace(category){
+      const detail=document.querySelector('#tree-mobile-detail');
+      document.querySelector('#mobile-place-title').textContent=places[category][0];
+      document.querySelector('#mobile-place-description').textContent=places[category][1];
+      const link=document.querySelector('#mobile-place-link');
+      link.href=category==='História'?'historia.html#sobre':'territorio.html?lugar='+destinationByBranch[category];
+      link.hidden=false;
+      detail.classList.add('active');
+      document.querySelectorAll('.scene-region').forEach(item=>item.classList.toggle('selected',item.dataset.branch===category));
+    }
+    document.querySelector('#tree-zoom').addEventListener('click',()=>{
+      const viewport=document.querySelector('#tree-viewport');
+      const zoomed=viewport.classList.toggle('zoomed');
+      const btn=document.querySelector('#tree-zoom');
+      btn.setAttribute('aria-pressed',String(zoomed));
+      btn.textContent=zoomed?'Mostrar inteira −':'Ampliar imagem ＋';
+      if(!zoomed){viewport.scrollLeft=0;viewport.scrollTop=0}
+    });
     document.querySelectorAll('.scene-region').forEach(region=>{
       const category=region.dataset.branch;
       const label=document.querySelector('#scene-hover-label');
@@ -112,7 +132,8 @@
       region.addEventListener('focus',()=>{show();label.style.left='50%';label.style.top='75%'});
       region.addEventListener('blur',()=>label.classList.remove('visible'));
       const enter=()=>openDestination(category);
-      region.addEventListener('click',enter);region.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();enter()}});
+      region.addEventListener('click',()=>{if(matchMedia('(max-width:600px)').matches)selectMobilePlace(category);else enter()});
+      region.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();if(matchMedia('(max-width:600px)').matches)selectMobilePlace(category);else enter()}});
     });
     const explore=document.querySelector('#tree-explore');
     if(explore)explore.addEventListener('click',()=>window.location.assign('ambiente.html?area=Todos'));
