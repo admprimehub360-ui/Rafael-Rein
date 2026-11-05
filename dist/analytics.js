@@ -55,7 +55,7 @@
   }
 
   document.addEventListener('click', function (event) {
-    const region = event.target.closest && event.target.closest('.scene-region[data-branch], .tree-node[data-branch]');
+    const region = event.target.closest && event.target.closest('.scene-region[data-branch], .tree-node[data-branch], .mobile-hotspot[data-branch]');
     if (region) record('tree_environment_click', { environment_name: region.dataset.branch, interaction_type: 'tree' });
     const mobileLink = event.target.closest && event.target.closest('#mobile-place-link');
     if (mobileLink) record('tree_environment_explore', { destination: mobileLink.getAttribute('href') });
