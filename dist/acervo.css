@@ -149,3 +149,21 @@ body:has(.tree-story) .catalog-body{display:none}
   .tree-mobile-detail p{font-size:13px;line-height:1.6;margin:0;color:#c4d8c9}
   .tree-mobile-detail a:not([hidden]){display:inline-flex;align-items:center;min-height:44px;margin-top:15px;padding:11px 16px;border-radius:7px;background:#d7f38f;color:#173121;font-weight:800;font-size:13px;text-decoration:none}
 }
+
+/* Mobile hotzones: direct links independent of SVG hit-testing. */
+.mobile-hotspot{display:none}
+@media(max-width:600px){
+  .tree-viewport .scene-hotspots{pointer-events:none}
+  .tree-viewport .scene-region,.tree-viewport .scene-region .region-hit{pointer-events:none}
+  .tree-viewport .tree-canvas .mobile-hotspot{position:absolute;display:block;z-index:30;border-radius:30%;touch-action:manipulation;-webkit-tap-highlight-color:rgba(215,243,143,.35);text-decoration:none}
+  .mobile-hotspot:after{content:'';position:absolute;left:50%;top:50%;width:13px;height:13px;border:2px solid #dcf4a5;border-radius:50%;background:#18382bba;box-shadow:0 0 0 5px #112d2380;transform:translate(-50%,-50%);pointer-events:none}
+  .mobile-hotspot:focus-visible{outline:3px solid #d7f38f;outline-offset:0}
+  .mobile-hotspot-prompts{left:3%;top:3%;width:34%;height:28%}
+  .mobile-hotspot-skills{left:69%;top:2%;width:29%;height:28%}
+  .mobile-hotspot-ia{left:2%;top:35%;width:34%;height:30%}
+  .mobile-hotspot-estrategia{left:67%;top:34%;width:31%;height:30%}
+  .mobile-hotspot-gestao{left:34%;top:66%;width:32%;height:33%}
+  .mobile-hotspot-repos{left:68%;top:66%;width:30%;height:33%}
+  .mobile-hotspot-historia{left:40%;top:17%;width:25%;height:28%}
+  .tree-mobile-detail{display:none}
+}
