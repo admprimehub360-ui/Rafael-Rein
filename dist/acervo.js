@@ -1,4 +1,5 @@
 /* Curadoria editorial Rafael Rein. Links para terceiros são identificados em cada material. */
+(function(){if(!document.querySelector('script[data-rr-mobile]')){const s=document.createElement('script');s.src='mobile-nav.js';s.dataset.rrMobile='1';document.head.appendChild(s)}})();
 (function(){if(!document.querySelector('script[data-rr-analytics]')){const s=document.createElement('script');s.src='analytics.js';s.defer=true;s.dataset.rrAnalytics='1';document.head.appendChild(s)}})();
 window.RR_MATERIAIS = [
   {
