@@ -3,6 +3,13 @@
   function init() {
     const canvas = document.querySelector('.tree-canvas');
     if (!canvas || canvas.querySelector('.mobile-hotspot')) return;
+    function highlight(key) {
+      document.querySelectorAll('.scene-region').forEach(region => {
+        const name = region.dataset.branch;
+        const match = key === 'repos' ? name === 'Repositórios' : key === 'ia' ? name === 'IA aplicada' : key === 'historia' ? name === 'História' : name.toLowerCase() === key;
+        region.classList.toggle('mobile-active', match);
+      });
+    }
     const zones = [
       ['Prompts', 'territorio.html?lugar=prompts', 'prompts'],
       ['Skills', 'territorio.html?lugar=skills', 'skills'],
@@ -21,9 +28,17 @@
       link.title = label;
       link.dataset.short = label === 'Repositórios' ? 'Códigos' : label === 'IA aplicada' ? 'IA aplicada' : label === 'História' ? 'Minha história' : label;
       canvas.appendChild(link);
+      link.addEventListener('pointerdown', () => highlight(key));
+      link.addEventListener('click', event => {
+        if (!window.matchMedia('(max-width: 600px)').matches) return;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        highlight(key);
+        window.setTimeout(() => { window.location.href = href; }, 230);
+      });
     }
     const hint = document.querySelector('.tree-mobile-tools span');
-    if (hint) hint.textContent = 'Toque em uma região da árvore para entrar no ambiente.';
+    if (hint) hint.textContent = 'Explore as construções da árvore. Toque em um ambiente para entrar.';
     const panel = document.querySelector('#tree-mobile-detail');
     if (panel) panel.setAttribute('aria-hidden', 'true');
   }
