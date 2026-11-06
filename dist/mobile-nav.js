@@ -19,6 +19,7 @@
       link.dataset.branch = label;
       link.setAttribute('aria-label', 'Abrir ' + label);
       link.title = label;
+      link.dataset.short = label === 'Repositórios' ? 'Códigos' : label === 'IA aplicada' ? 'IA aplicada' : label === 'História' ? 'Minha história' : label;
       canvas.appendChild(link);
     }
     const hint = document.querySelector('.tree-mobile-tools span');
