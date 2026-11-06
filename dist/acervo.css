@@ -167,3 +167,29 @@ body:has(.tree-story) .catalog-body{display:none}
   .mobile-hotspot-historia{left:40%;top:17%;width:25%;height:28%}
   .tree-mobile-detail{display:none}
 }
+
+/* Mobile presentation refinement: named, quiet wayfinding on the artwork. */
+@media (max-width:600px){
+  .knowledge-copy{padding:22px 20px 18px}
+  .knowledge-copy .eyebrow{top:8px}
+  .knowledge-copy h2{font-size:clamp(31px,8vw,38px);line-height:1.05}
+  .knowledge-copy>p:not(.tree-legend){font-size:13px;line-height:1.55;margin-top:10px}
+  .knowledge-layout .tree-viewport{order:2}
+  .knowledge-layout .tree-mobile-tools{order:3;padding:10px 16px 15px;gap:10px}
+  .tree-mobile-tools span{max-width:none;font-size:11px;line-height:1.45;color:#acc5b2}
+  #tree-zoom{font-size:11px;min-height:39px;padding:9px 12px;border-radius:999px;background:#173b2b}
+  .tree-viewport .tree-canvas .mobile-hotspot{border-radius:12px}
+  .tree-viewport .tree-canvas .mobile-hotspot:after{
+    content:attr(data-short);left:50%;top:50%;width:max-content;height:auto;
+    max-width:94px;box-sizing:border-box;padding:5px 8px;border:1px solid #d7e6ba9c;
+    border-radius:5px;background:#071c16e8;box-shadow:0 4px 15px #020f0bcc;
+    color:#f4f7df;font:700 clamp(9px,2.5vw,11px)/1.15 "DM Sans",sans-serif;
+    letter-spacing:-.025em;text-align:center;white-space:normal;
+    transform:translate(-50%,-50%);pointer-events:none
+  }
+  .tree-viewport .tree-canvas .mobile-hotspot:active:after,
+  .tree-viewport .tree-canvas .mobile-hotspot:focus-visible:after{
+    background:#d7f38f;color:#123323;border-color:#d7f38f
+  }
+  .tree-story{padding-top:52px}
+}
