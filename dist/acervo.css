@@ -193,3 +193,20 @@ body:has(.tree-story) .catalog-body{display:none}
   }
   .tree-story{padding-top:52px}
 }
+
+/* Mobile clean-world interaction: no static plaques or dots; reveal on touch. */
+@media(max-width:600px){
+  .tree-viewport .tree-canvas .mobile-hotspot:after{content:none;display:none}
+  .tree-viewport .tree-canvas .mobile-hotspot{background:transparent;border:0;outline-offset:-3px}
+  .tree-viewport .scene-hotspots{display:block;visibility:visible;z-index:19;pointer-events:none}
+  .tree-viewport .scene-region.mobile-active image{
+    opacity:.75;filter:brightness(1.3) saturate(1.2);
+  }
+  .tree-viewport .scene-region.mobile-active .region-outline{
+    opacity:1;stroke:#e9ffb2;stroke-width:4;filter:drop-shadow(0 0 9px #d7f38f);
+  }
+  .tree-viewport .scene-region{transition:none}
+  .knowledge-layout .tree-mobile-tools{padding:13px 16px 16px}
+  .tree-mobile-tools span{font-size:12px}
+  #tree-zoom{background:#d7f38f;color:#153121;border-color:#d7f38f;box-shadow:0 4px 18px #020e0a44}
+}
