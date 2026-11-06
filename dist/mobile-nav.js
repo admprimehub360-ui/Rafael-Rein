@@ -3,11 +3,9 @@
   function init() {
     const canvas = document.querySelector('.tree-canvas');
     if (!canvas || canvas.querySelector('.mobile-hotspot')) return;
-    function highlight(key) {
+    function highlight(label) {
       document.querySelectorAll('.scene-region').forEach(region => {
-        const name = region.dataset.branch;
-        const match = key === 'repos' ? name === 'Repositórios' : key === 'ia' ? name === 'IA aplicada' : key === 'historia' ? name === 'História' : name.toLowerCase() === key;
-        region.classList.toggle('mobile-active', match);
+        region.classList.toggle('mobile-active', region.dataset.branch === label);
       });
     }
     const zones = [
@@ -28,12 +26,12 @@
       link.title = label;
       link.dataset.short = label === 'Repositórios' ? 'Códigos' : label === 'IA aplicada' ? 'IA aplicada' : label === 'História' ? 'Minha história' : label;
       canvas.appendChild(link);
-      link.addEventListener('pointerdown', () => highlight(key));
+      link.addEventListener('pointerdown', () => highlight(label));
       link.addEventListener('click', event => {
         if (!window.matchMedia('(max-width: 600px)').matches) return;
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
-        highlight(key);
+        highlight(label);
         window.setTimeout(() => { window.location.href = href; }, 230);
       });
     }
