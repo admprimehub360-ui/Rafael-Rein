@@ -40,6 +40,43 @@
       #inicio .hero-copy { padding: 0 0 3rem; }
       #inicio .hero-copy h1 { font-size: clamp(2rem, 8vw, 2.65rem); }
     }
+  
+    @media (max-width: 680px) {
+      #inicio .scene {
+        aspect-ratio: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      #inicio .scene::before, #inicio .scene::after {
+        content: "";
+        display: block;
+        width: 100%;
+        aspect-ratio: 876 / 897;
+        background-image: var(--scene-image);
+        background-repeat: no-repeat;
+        background-size: 200% 100%;
+      }
+      #inicio .scene::before { background-position: left center; }
+      #inicio .scene::after { background-position: right center; }
+      #inicio .scene-base {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        clip-path: inset(50%);
+        overflow: hidden;
+      }
+      #inicio .scene-focus { display: none; }
+      #inicio .scene-target {
+        width: 100%;
+        height: 50%;
+        padding: 1rem;
+      }
+      #inicio .scene-target.left { top: 0; bottom: auto; left: 0; }
+      #inicio .scene-target.right { top: 50%; bottom: auto; right: auto; left: 0; align-items: flex-start; }
+      #inicio .scene-label { display: block; max-width: 88%; padding: .8rem 1rem; }
+      #inicio .scene-label strong { font-size: 1.15rem; }
+      #inicio .scene-label span { font-size: .76rem; }
+    }
   </style>
 </head>
 <body>
